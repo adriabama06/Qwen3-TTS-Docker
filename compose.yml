@@ -1,0 +1,28 @@
+services:
+  qwen3-tts:
+    image: adriabama06/qwen3-tts # This image does not exist, is only to get this name in docker images and not an automatically generated name
+    build:
+      dockerfile: Dockerfile
+      context: .
+    network_mode: bridge
+    container_name: qwen3-tts
+    tty: true
+    stdin_open: true
+    healthcheck:
+      test: curl --fail http://localhost:8000 || exit 1
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    ports:
+      - 8000:8000
+    volumes:
+      - ./entrypoint.sh:/Qwen3-TTS/entrypoint.sh
+      - ./models:/Qwen3-TTS/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all # To use specifics GPUs --> device_ids: ['0']
+              capabilities: [gpu]
