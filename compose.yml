@@ -1,6 +1,6 @@
 services:
   qwen3-tts:
-    image: adriabama06/qwen3-tts # This image does not exist, is only to get this name in docker images and not an automatically generated name
+    image: ghcr.io/adriabama06/qwen3-tts-docker:main
     build:
       dockerfile: Dockerfile
       context: .
@@ -26,3 +26,4 @@ services:
             - driver: nvidia
               count: all # To use specifics GPUs --> device_ids: ['0']
               capabilities: [gpu]
+
