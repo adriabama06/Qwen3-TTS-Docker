@@ -1,6 +1,7 @@
 services:
   qwen3-tts:
-    image: ghcr.io/adriabama06/qwen3-tts-docker:main
+    image: adriabama06/qwen3-tts-docker:latest
+    # image: ghcr.io/adriabama06/qwen3-tts-docker:latest
     build:
       dockerfile: Dockerfile
       context: .
@@ -25,5 +26,4 @@ services:
           devices:
             - driver: nvidia
               count: all # To use specifics GPUs --> device_ids: ['0']
-              capabilities: [gpu]
-
+              capabilities: [ gpu ]
