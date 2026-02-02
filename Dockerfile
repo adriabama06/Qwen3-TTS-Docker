@@ -2,7 +2,7 @@ ARG ANACONDA_PYTHON_VERSION=3.12
 
 FROM pytorch/pytorch:2.7.1-cuda12.6-cudnn9-devel
 
-RUN apt-get update -y && apt-get install -y git sox libsox-fmt-all && apt-get clean
+RUN apt-get update -y && apt-get install -y dox2unix git sox libsox-fmt-all && apt-get clean
 
 WORKDIR /Qwen3-TTS
 
@@ -10,6 +10,8 @@ RUN git clone https://github.com/QwenLM/Qwen3-TTS.git . && git reset --hard d5c4
 RUN pip install -U "huggingface_hub[cli]" && pip install -e . && pip install -U flash-attn --no-build-isolation
 
 COPY ./entrypoint.sh ./entrypoint.sh
+
+RUN dox2unix ./entrypoint.sh
 
 ENTRYPOINT [ "bash", "-c" ]
 CMD [ "/Qwen3-TTS/entrypoint.sh" ]
